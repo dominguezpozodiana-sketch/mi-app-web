@@ -1,0 +1,27 @@
+/*contenido*/
+.contenido {
+  width: 100%;
+  height: 100%;
+}
+
+/*cabecera*/
+.logo-app {
+  background: rgb(79,79,213);
+  color: white;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  height: 60px;
+  padding-left: 10px;
+}
+.pantallas {
+  height: 100%;
+}
+.pantallas-menulateral {
+  display: none;
+}
+.pantallas-menulateral.activa {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}

@@ -1,0 +1,95 @@
+/*Menu lateral*/
+.menu-lateral {
+  width: 50px;
+  flex-shrink: 0;
+  height: 100%;
+  transition: width 0.7s;
+}
+/* cabecera del menu lateral*/
+.cabecera-menu-lateral {
+  width: 100%;
+  display: flex;
+  height: 60px;
+  box-shadow: inset -10px 0px 10px -2px rgba(79, 79, 213, 0.4), 0 10px 10px -2px rgba(0, 0, 0, 0.1);
+  /* Desplazamiento Y: 5px, blur: 10px, expansión: -2px (evita que se extienda a los lados) */
+  justify-content: space-between;
+}
+/* boton del menu lateral*/
+.btn-menu-lateral {
+  overflow: visible;
+  padding: 10px;
+  background: none;
+}
+/*parte derecha de la cabecera*/
+.parte-izquierda-cabecera {
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  width: 100%;
+  font-size: 11px;
+}
+/*boton de usuario registrado*/
+.btn-usuario-registrado {
+  background: none;
+  margin-left: 50px;
+  border-radius: 50%;
+  display: flex;
+}
+/*nombre del usuario*/
+.name-usuario-cabecera-menu-lateral{
+  display: block;
+  align-self: flex-start;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100px;
+  margin-top: 5px;
+}
+/*cuerpo del menu lateral*/
+.cuerpo-menu-lateral {
+  overflow: hidden;
+  box-shadow: inset -10px 0px 15px -5px rgba(79, 79, 213, 0.4);
+  height: 100%;
+  padding-top: 17px;
+}
+/*parte de seleccion inicio*/
+.selector-inicio {
+  height: 35px;
+  display: flex;
+}
+/*boton de inicio que esta en en el menu lateral*/
+.btn-pantalla-inicio {
+  display: flex;
+  align-items: center;
+  background: none;
+  width: 100%;
+  font-size: 15px;
+  transition: font-size 0.5s;
+}
+.btn-pantalla-inicio img {
+  overflow: visible;
+}
+.btn-pantalla-inicio p {
+  margin-left: 16px;
+}
+.menu-lateral.abrir {
+  width: 165px;
+}
+.btn-panlla-menu-lateral.active {
+  font-weight: bold;
+ /* font-size: 20px;*/
+}
+
+.tamano-icono {
+  margin-left: 15px;
+  width: 20px;
+  height: 20px;
+  transition: margin-left 0.7s ease, width 0.7s, height 0.7s;
+}
+.tamano-icono.activo {
+  margin-left: 7.5px;
+  width: 35px;
+  height: 35px;
+  
+}
