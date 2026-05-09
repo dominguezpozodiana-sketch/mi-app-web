@@ -1,90 +1,80 @@
 import os
+import sys
 import struct
-import subprocess
+import zlib
+import hashlib
 from Crypto.Cipher import AES
-from Crypto.Random import get_random_bytes
 
-SRC_DIR = "web_src"            # carpeta con tus archivos originales
-OUTPUT_DAT = "web_shield.dat"  # archivo cifrado de salida
+# --- CONFIGURACIÓN ---
+CARPETA_WEB = "mi_web"
+SALIDA_RAW = "app/src/main/res/raw/contenedor.cef"
+CLAVE_PRUEBA = b"12345678901234567890123456789012"  # 32 bytes para fase 1
 
-def minify_html(content):
-    r = subprocess.run(
-        ["html-minifier", "--collapse-whitespace", "--remove-comments"],
-        input=content,
-        capture_output=True,
-        text=True
-    )
-    return r.stdout
+def recolectar_archivos(ruta_base):
+    archivos = []
+    for raiz, dirs, nombres in os.walk(ruta_base):
+        for nombre in nombres:
+            ruta_completa = os.path.join(raiz, nombre)
+            ruta_relativa = os.path.relpath(ruta_completa, ruta_base).replace("\\", "/")
+            with open(ruta_completa, "rb") as f:
+                datos = f.read()
+            archivos.append((ruta_relativa, datos))
+    return archivos
 
-def obfuscate_js(content):
-    r = subprocess.run(
-        ["javascript-obfuscator", "--compact", "true", "--string-array", "true"],
-        input=content,
-        capture_output=True,
-        text=True
-    )
-    return r.stdout
+def empaquetar():
+    print("[1/4] Recolectando archivos de '{}'...".format(CARPETA_WEB))
+    if not os.path.exists(CARPETA_WEB):
+        print("ERROR: No se encuentra la carpeta '{}'".format(CARPETA_WEB))
+        sys.exit(1)
+    archivos = recolectar_archivos(CARPETA_WEB)
+    print("    Encontrados {} archivos.".format(len(archivos)))
 
-def minify_css(content):
-    r = subprocess.run(
-        ["cleancss", "--level", "2"],
-        input=content,
-        capture_output=True,
-        text=True
-    )
-    return r.stdout
+    entradas = {}
+    print("[2/4] Comprimiendo y cifrando con AES-256-GCM...")
+    for ruta, datos in archivos:
+        comprimido = zlib.compress(datos, 9)
+        cipher = AES.new(CLAVE_PRUEBA, AES.MODE_GCM)
+        cifrado, tag = cipher.encrypt_and_digest(comprimido)
+        entradas[ruta] = {
+            "nonce": cipher.nonce,
+            "tag": tag,
+            "datos": cifrado
+        }
+        print("    {}: {} bytes -> {} bytes (comprimido) -> {} bytes (cifrado)".format(
+            ruta, len(datos), len(comprimido), len(cifrado)))
 
-# Recopila y procesa todos los archivos
-files = {}
-for root, _, filenames in os.walk(SRC_DIR):
-    for fn in filenames:
-        full_path = os.path.join(root, fn)
-        # Ruta relativa dentro de web_src (ej: "css/estilo.css")
-        rel_path = os.path.relpath(full_path, SRC_DIR).replace("\\", "/")
+    # Generar cabecera y datos
+    print("[3/4] Generando contenedor .cef...")
+    with open(SALIDA_RAW, "wb") as f:
+        # Magic number
+        f.write(b"CEF1")
+        # Número de archivos
+        f.write(struct.pack(">H", len(entradas)))
 
-        with open(full_path, "r", encoding="utf-8") as f:
-            raw_content = f.read()
+        # Calcular offsets y escribir índice
+        offset_actual = 0
+        bloques = b""
+        for ruta, info in entradas.items():
+            nonce = info["nonce"]
+            tag = info["tag"]
+            datos_cif = info["datos"]
+            bloque = nonce + tag + datos_cif
+            tamano_bloque = len(bloque)
 
-        ext = os.path.splitext(fn)[1].lower()
-        if ext == ".html":
-            processed = minify_html(raw_content)
-        elif ext == ".js":
-            processed = obfuscate_js(raw_content)
-        elif ext == ".css":
-            processed = minify_css(raw_content)
-        else:
-            # imágenes u otros binarios se leerían en modo binario, aquí asumimos texto
-            processed = raw_content
+            nombre_bytes = ruta.encode("utf-8")
+            f.write(struct.pack(">H", len(nombre_bytes)))
+            f.write(nombre_bytes)
+            f.write(struct.pack(">I", offset_actual))
+            f.write(struct.pack(">I", tamano_bloque))
 
-        files[rel_path] = processed.encode("utf-8")
-        print(f"✔ Procesado: {rel_path} ({len(raw_content)} → {len(processed)} bytes)")
+            bloques += bloque
+            offset_actual += tamano_bloque
 
-# Empaquetado binario en memoria
-buf = bytearray()
-# Escribir número total de archivos (4 bytes, big-endian)
-buf.extend(struct.pack(">I", len(files)))
+        # Escribir bloque de datos
+        f.write(bloques)
 
-for name, data in files.items():
-    name_bytes = name.encode("utf-8")
-    # Longitud del nombre (1 byte)
-    buf.extend(struct.pack(">B", len(name_bytes)))
-    # Nombre en UTF-8
-    buf.extend(name_bytes)
-    # Longitud del contenido (4 bytes)
-    buf.extend(struct.pack(">I", len(data)))
-    # Contenido
-    buf.extend(data)
+    print("[4/4] Contenedor creado: {} ({} bytes)".format(SALIDA_RAW, os.path.getsize(SALIDA_RAW)))
+    print("¡Listo! Ya puedes compilar la app.")
 
-# Cifrar el paquete binario con AES-256-GCM
-master_key = get_random_bytes(32)   # clave de 256 bits aleatoria
-nonce = get_random_bytes(12)        # número usado una vez
-cipher = AES.new(master_key, AES.MODE_GCM, nonce=nonce)
-ciphertext, tag = cipher.encrypt_and_digest(buf)
-
-# Guardar todo en el archivo .dat (nonce + tag + ciphertext)
-with open(OUTPUT_DAT, "wb") as f:
-    f.write(nonce + tag + ciphertext)
-
-print("\n✅ Archivo cifrado creado:", OUTPUT_DAT)
-print("🔑 Clave maestra (copia esta línea completa):")
-print(master_key.hex())
+if __name__ == "__main__":
+    empaquetar()
