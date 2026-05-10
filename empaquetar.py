@@ -8,7 +8,7 @@ from Crypto.Cipher import AES
 # --- CONFIGURACIÓN ---
 CARPETA_WEB = "mi_web"
 SALIDA_RAW = "app/src/main/res/raw/contenedor.cef"
-CLAVE_PRUEBA = b"12345678901234567890123456789012"  # 32 bytes para fase 1
+CLAVE_PRUEBA = b"12345678901234567890123456789012"   # 32 bytes
 
 def recolectar_archivos(ruta_base):
     archivos = []

@@ -1,0 +1,3 @@
+/workspaces/mi-app-web/app/src/main/java/com/cefiro/app/ContenedorCifrado.kt
+/workspaces/mi-app-web/app/src/main/java/com/cefiro/app/MainActivity.kt
+/workspaces/mi-app-web/app/src/main/java/com/cefiro/app/HashUtils.kt

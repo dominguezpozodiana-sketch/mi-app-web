@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.cefiro.app-merged_res-20:/layout_activity_main.xml.flat",
+        "source": "com.cefiro.app-main-22:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.cefiro.app-merged_res-20:/raw_contenedor.cef.flat",
+        "source": "com.cefiro.app-main-22:/raw/contenedor.cef"
+    }
+]
