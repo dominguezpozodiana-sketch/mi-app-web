@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            webView.loadUrl("https://appassets.local/index.html")
+            webView.loadUrl("http://localhost/index.html")
         } catch (e: Exception) {
             Toast.makeText(this, "❌ Error general: ${e.message}", Toast.LENGTH_LONG).show()
         }
