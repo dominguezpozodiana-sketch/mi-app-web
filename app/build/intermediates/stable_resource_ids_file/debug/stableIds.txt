@@ -541,6 +541,7 @@ com.cefiro.app:color/abc_background_cache_hint_selector_material_dark = 0x7f0500
 com.cefiro.app:drawable/abc_control_background_material = 0x7f070012
 com.cefiro.app:style/Theme.AppCompat.DialogWhenLarge = 0x7f0e0101
 com.cefiro.app:drawable/abc_btn_switch_to_on_mtrl_00001 = 0x7f07000d
+com.cefiro.app:xml/network_security_config = 0x7f100000
 com.cefiro.app:drawable/abc_btn_radio_to_on_mtrl_015 = 0x7f07000c
 com.cefiro.app:style/Base.TextAppearance.AppCompat.Widget.Button.Inverse = 0x7f0e0033
 com.cefiro.app:drawable/abc_btn_radio_to_on_mtrl_000 = 0x7f07000b

@@ -4,3 +4,4 @@ id webview
 layout activity_main
 raw contenedor
 style AppTheme
+xml network_security_config
