@@ -20,13 +20,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Clave fija DEBE SER IDÉNTICA a la de empaquetar.py
+        // Clave fija IDÉNTICA a la de empaquetar.py
         val clave = "12345678901234567890123456789012".toByteArray(Charsets.UTF_8)
 
         contenedor = ContenedorCifrado(clave)
         try {
             contenedor.cargarDesdeRecurso(resources, R.raw.contenedor)
-            Toast.makeText(this, "✅ Contenedor cargado: ${contenedor.listarArchivos().size} archivos", Toast.LENGTH_LONG).show()
+            val archivos = contenedor.listarArchivos()
+            Toast.makeText(this, "✅ Contenedor cargado: ${archivos.size} archivos\n${archivos.joinToString()}", Toast.LENGTH_LONG).show()
         } catch (e: Exception) {
             Toast.makeText(this, "❌ Error al cargar contenedor: ${e.message}", Toast.LENGTH_LONG).show()
             return
@@ -59,6 +60,7 @@ class MainActivity : AppCompatActivity() {
                                 ruta.endsWith(".js")   -> "application/javascript"
                                 ruta.endsWith(".png")  -> "image/png"
                                 ruta.endsWith(".jpg") || ruta.endsWith(".jpeg") -> "image/jpeg"
+                                ruta.endsWith(".svg")  -> "image/svg+xml"
                                 else -> "application/octet-stream"
                             }
                             return WebResourceResponse(
