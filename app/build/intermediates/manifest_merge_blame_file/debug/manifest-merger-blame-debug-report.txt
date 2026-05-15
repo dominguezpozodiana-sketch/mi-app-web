@@ -24,7 +24,7 @@
 17-->[androidx.core:core:1.12.0] /home/codespace/.gradle/caches/transforms-3/073b30953a677e2a926c0f17065fa4c3/transformed/core-1.12.0/AndroidManifest.xml:26:22-94
 18
 19    <application
-19-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:4:5-16:19
+19-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:4:5-17:19
 20        android:allowBackup="false"
 20-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:5:9-36
 21        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -33,47 +33,49 @@
 23        android:extractNativeLibs="false"
 24        android:label="App Protegida"
 24-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:6:9-38
-25        android:theme="@style/AppTheme" >
+25        android:theme="@style/AppTheme"
 25-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:7:9-40
-26        <activity
-26-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:8:9-15:20
-27            android:name="com.cefiro.app.MainActivity"
-27-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:9:13-41
-28            android:exported="true" >
-28-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:10:13-36
-29            <intent-filter>
-29-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:11:13-14:29
-30                <action android:name="android.intent.action.MAIN" />
-30-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:12:17-69
-30-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:12:25-66
-31
-32                <category android:name="android.intent.category.LAUNCHER" />
-32-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:13:17-77
-32-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:13:27-74
-33            </intent-filter>
-34        </activity>
-35
-36        <provider
-36-->[androidx.emoji2:emoji2:1.2.0] /home/codespace/.gradle/caches/transforms-3/88f2265835e82cd6001e4ad6e8e26fc6/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
-37            android:name="androidx.startup.InitializationProvider"
-37-->[androidx.emoji2:emoji2:1.2.0] /home/codespace/.gradle/caches/transforms-3/88f2265835e82cd6001e4ad6e8e26fc6/transformed/emoji2-1.2.0/AndroidManifest.xml:25:13-67
-38            android:authorities="com.cefiro.app.androidx-startup"
-38-->[androidx.emoji2:emoji2:1.2.0] /home/codespace/.gradle/caches/transforms-3/88f2265835e82cd6001e4ad6e8e26fc6/transformed/emoji2-1.2.0/AndroidManifest.xml:26:13-68
-39            android:exported="false" >
-39-->[androidx.emoji2:emoji2:1.2.0] /home/codespace/.gradle/caches/transforms-3/88f2265835e82cd6001e4ad6e8e26fc6/transformed/emoji2-1.2.0/AndroidManifest.xml:27:13-37
-40            <meta-data
-40-->[androidx.emoji2:emoji2:1.2.0] /home/codespace/.gradle/caches/transforms-3/88f2265835e82cd6001e4ad6e8e26fc6/transformed/emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
-41                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-41-->[androidx.emoji2:emoji2:1.2.0] /home/codespace/.gradle/caches/transforms-3/88f2265835e82cd6001e4ad6e8e26fc6/transformed/emoji2-1.2.0/AndroidManifest.xml:30:17-75
-42                android:value="androidx.startup" />
-42-->[androidx.emoji2:emoji2:1.2.0] /home/codespace/.gradle/caches/transforms-3/88f2265835e82cd6001e4ad6e8e26fc6/transformed/emoji2-1.2.0/AndroidManifest.xml:31:17-49
-43            <meta-data
-43-->[androidx.lifecycle:lifecycle-process:2.4.1] /home/codespace/.gradle/caches/transforms-3/0a70172065f876b0f9b027210227e15c/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:31:13-33:52
-44                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-44-->[androidx.lifecycle:lifecycle-process:2.4.1] /home/codespace/.gradle/caches/transforms-3/0a70172065f876b0f9b027210227e15c/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:32:17-78
-45                android:value="androidx.startup" />
-45-->[androidx.lifecycle:lifecycle-process:2.4.1] /home/codespace/.gradle/caches/transforms-3/0a70172065f876b0f9b027210227e15c/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:33:17-49
-46        </provider>
-47    </application>
-48
-49</manifest>
+26        android:usesCleartextTraffic="true" > <!-- 👈 Línea agregada -->
+26-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:8:9-44
+27        <activity
+27-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:9:9-16:20
+28            android:name="com.cefiro.app.MainActivity"
+28-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:10:13-41
+29            android:exported="true" >
+29-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:11:13-36
+30            <intent-filter>
+30-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:12:13-15:29
+31                <action android:name="android.intent.action.MAIN" />
+31-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:13:17-69
+31-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:13:25-66
+32
+33                <category android:name="android.intent.category.LAUNCHER" />
+33-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:14:17-77
+33-->/workspaces/mi-app-web/app/src/main/AndroidManifest.xml:14:27-74
+34            </intent-filter>
+35        </activity>
+36
+37        <provider
+37-->[androidx.emoji2:emoji2:1.2.0] /home/codespace/.gradle/caches/transforms-3/88f2265835e82cd6001e4ad6e8e26fc6/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+38            android:name="androidx.startup.InitializationProvider"
+38-->[androidx.emoji2:emoji2:1.2.0] /home/codespace/.gradle/caches/transforms-3/88f2265835e82cd6001e4ad6e8e26fc6/transformed/emoji2-1.2.0/AndroidManifest.xml:25:13-67
+39            android:authorities="com.cefiro.app.androidx-startup"
+39-->[androidx.emoji2:emoji2:1.2.0] /home/codespace/.gradle/caches/transforms-3/88f2265835e82cd6001e4ad6e8e26fc6/transformed/emoji2-1.2.0/AndroidManifest.xml:26:13-68
+40            android:exported="false" >
+40-->[androidx.emoji2:emoji2:1.2.0] /home/codespace/.gradle/caches/transforms-3/88f2265835e82cd6001e4ad6e8e26fc6/transformed/emoji2-1.2.0/AndroidManifest.xml:27:13-37
+41            <meta-data
+41-->[androidx.emoji2:emoji2:1.2.0] /home/codespace/.gradle/caches/transforms-3/88f2265835e82cd6001e4ad6e8e26fc6/transformed/emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+42                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+42-->[androidx.emoji2:emoji2:1.2.0] /home/codespace/.gradle/caches/transforms-3/88f2265835e82cd6001e4ad6e8e26fc6/transformed/emoji2-1.2.0/AndroidManifest.xml:30:17-75
+43                android:value="androidx.startup" />
+43-->[androidx.emoji2:emoji2:1.2.0] /home/codespace/.gradle/caches/transforms-3/88f2265835e82cd6001e4ad6e8e26fc6/transformed/emoji2-1.2.0/AndroidManifest.xml:31:17-49
+44            <meta-data
+44-->[androidx.lifecycle:lifecycle-process:2.4.1] /home/codespace/.gradle/caches/transforms-3/0a70172065f876b0f9b027210227e15c/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:31:13-33:52
+45                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+45-->[androidx.lifecycle:lifecycle-process:2.4.1] /home/codespace/.gradle/caches/transforms-3/0a70172065f876b0f9b027210227e15c/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:32:17-78
+46                android:value="androidx.startup" />
+46-->[androidx.lifecycle:lifecycle-process:2.4.1] /home/codespace/.gradle/caches/transforms-3/0a70172065f876b0f9b027210227e15c/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:33:17-49
+47        </provider>
+48    </application>
+49
+50</manifest>

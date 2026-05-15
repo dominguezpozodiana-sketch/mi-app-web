@@ -22,7 +22,8 @@
         android:debuggable="true"
         android:extractNativeLibs="false"
         android:label="App Protegida"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true" > <!-- 👈 Línea agregada -->
         <activity
             android:name="com.cefiro.app.MainActivity"
             android:exported="true" >
