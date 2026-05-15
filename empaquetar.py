@@ -2,13 +2,11 @@ import os
 import sys
 import struct
 import zlib
-import hashlib
 from Crypto.Cipher import AES
 
-# --- CONFIGURACIÓN ---
 CARPETA_WEB = "mi_web"
 SALIDA_RAW = "app/src/main/res/raw/contenedor.cef"
-CLAVE_PRUEBA = b"12345678901234567890123456789012"   # 32 bytes
+CLAVE_PRUEBA = b"12345678901234567890123456789012"  # 32 bytes, igual que en Kotlin
 
 def recolectar_archivos(ruta_base):
     archivos = []
@@ -43,22 +41,20 @@ def empaquetar():
         print("    {}: {} bytes -> {} bytes (comprimido) -> {} bytes (cifrado)".format(
             ruta, len(datos), len(comprimido), len(cifrado)))
 
-    # Generar cabecera y datos
     print("[3/4] Generando contenedor .cef...")
     with open(SALIDA_RAW, "wb") as f:
-        # Magic number
+        # Magic
         f.write(b"CEF1")
         # Número de archivos
         f.write(struct.pack(">H", len(entradas)))
 
-        # Calcular offsets y escribir índice
         offset_actual = 0
         bloques = b""
         for ruta, info in entradas.items():
             nonce = info["nonce"]
             tag = info["tag"]
             datos_cif = info["datos"]
-            bloque = nonce + tag + datos_cif
+            bloque = nonce + tag + datos_cif   # orden: nonce (12) + tag (16) + cifrado
             tamano_bloque = len(bloque)
 
             nombre_bytes = ruta.encode("utf-8")
@@ -70,7 +66,6 @@ def empaquetar():
             bloques += bloque
             offset_actual += tamano_bloque
 
-        # Escribir bloque de datos
         f.write(bloques)
 
     print("[4/4] Contenedor creado: {} ({} bytes)".format(SALIDA_RAW, os.path.getsize(SALIDA_RAW)))
