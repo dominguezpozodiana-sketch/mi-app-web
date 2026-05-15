@@ -22,7 +22,6 @@
         android:debuggable="true"
         android:extractNativeLibs="false"
         android:label="App Protegida"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.cefiro.app.MainActivity"
